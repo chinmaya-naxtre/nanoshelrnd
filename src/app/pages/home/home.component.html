@@ -1,0 +1,24 @@
+<div>
+    <h3>Bio Products</h3>
+</div>
+<div class="row">
+    <div class="col-lg-3 col-md-6" *ngFor="let item of items">
+        <div class="card">
+            <div class="card-header card-header-info">
+                <h5 class="card-title">{{ item.cat_name }}</h5>
+            </div>
+            <div class="card-body table-responsive">
+                <table class="table table-hover" style="min-height: 100px">
+                    <tbody>
+                        <tr (click)="open(sub.id)" *ngFor="let sub of item.sub_category">
+                            <!-- <td>1</td> -->
+                            <td>
+                                <a>{{ sub.cat_name }}</a>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

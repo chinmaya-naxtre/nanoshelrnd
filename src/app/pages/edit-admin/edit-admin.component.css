@@ -1,0 +1,5 @@
+div#acc_products {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 200px;
+}

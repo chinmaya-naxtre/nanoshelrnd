@@ -1,0 +1,38 @@
+
+<button type="submit" class="btn btn-success" id="add_admin_button" style="float: right;" (click)="addAdmin()">Add Admin</button>
+<button type="submit" class="btn btn-success" id="back_button"  (click)="back()">Back</button>
+<div class="container">
+    <h1>All Admins</h1>
+    <table class="rwd-table">
+        <tbody>
+            <tr>
+                <th>User Id</th>
+                <th>User Details</th>
+                <th>Accessable Products</th>
+                <th>Action</th>
+            </tr>
+            <tr *ngFor="let admin of admins">
+                <td>
+                    {{admin.user_id}}
+                </td>
+                <td>
+                    <p *ngIf="admin.user_type == 1">
+                       <strong>User Type</strong> : P.h.d
+                    </p>
+                    <p *ngIf="admin.user_type ==2">
+                        <strong>User Type</strong> : M.Tech
+                    </p>
+                    <p><strong>Full Name</strong> : {{admin.first_name}} {{admin.last_name}}</p>
+                    <p><strong>Email</strong> : {{admin.email}}</p>
+                    <p><strong>username</strong> : {{admin.user_name}}</p>
+                    <p><strong>password</strong> : {{admin.password}}</p>
+                </td>
+                <td>{{admin.accessable_products}}</td>
+                <td>
+                    <button class="btn" id="e-btn" (click)="editAdmin(admin.user_id)">Edit</button> &nbsp;
+                    <button class="btn" id="d-btn" (click)="deleteAdmin(admin.user_id)">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>

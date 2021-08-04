@@ -1,0 +1,43 @@
+.text-area {
+  padding: 40px;
+}
+
+.box-area {
+  border-radius: 10px;
+  border-color: lightgray;
+}
+
+.card
+  [class*="card-header-"]:not(.card-header-icon):not(.card-header-text):not(.card-header-image) {
+  border-radius: 3px;
+  margin-top: -20px;
+  padding: 5px !important;
+}
+.ck-editor__editable_inline {
+  min-height: 400px !important;
+}
+
+.selected-product {
+  float: left;
+  background: #e8edef;
+  border-radius: 8px;
+  margin-right: 10px;
+  margin-bottom: 10px !important;
+  padding: 5px;
+}
+
+.selected-product p {
+  margin-bottom: 0px;
+  max-width: 400% !important;
+}
+
+div #s-prods {
+  height: 20px;
+  width: 250px;
+  overflow: hidden !important;
+}
+
+.product-card {
+  height: fit-content;
+  width: fit-content !important;
+}

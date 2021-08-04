@@ -1,0 +1,83 @@
+<div class="col-md-8">
+    <div class="card">
+        <div class="card-header card-header-success">
+            <h4 class="card-title">Profile Details</h4>
+            <p class="card-category">Complete profile</p>
+        </div>
+        <div class="card-body">
+            <form>
+                <div class="row">
+                    <div class="col-md-3">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Username</label>
+                            <input type="text" class="form-control" name="username" id="username"
+                                [(ngModel)]="username">
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Email address</label>
+                            <input type="email" class="form-control" name="email" id="email" [(ngModel)]="email">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Fist Name</label>
+                            <input type="text" class="form-control" name="first_name" id="first_name"
+                                [(ngModel)]="first_name">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Last Name</label>
+                            <input type="text" class="form-control" name="last_name" id="last_name"
+                                [(ngModel)]="last_name">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Set Password</label>
+                            <input type="password" class="form-control" name="password" id="password"
+                                [(ngModel)]="password">
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label class="bmd-label-floating">Confirm Password</label>
+                            <input type="password" class="form-control" name="confirm_password" id="confirm_password"
+                                [(ngModel)]="confirm_password">
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">Admin Type</label><br>
+                        <input type="radio" id="phd" name="type" value="1" [(ngModel)]="user_type" />&nbsp;
+                        <label for="1">P.h.d</label> &nbsp;
+                        <input type="radio" id="mtech" name="type" value="2" [(ngModel)]="user_type" />&nbsp;
+                        <label for="2">M.Tech</label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label class="bmd-label-floating">Accessable Products: </label><br>
+                    </div>
+                    <div id="acc_products" style="float:right !important;">
+                        <ul class="checkbox-items" *ngFor="let item of checkboxesDataList">
+                            <li>
+                                <input type="checkbox" name="{{item.cat_name}}" id="{{item.cat_name}}"
+                                    [(ngModel)]="item.isChecked" (change)="changeSelection()">&nbsp; {{item.cat_name}}
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary pull-right" (click)="update_profile()">Update Profile</button>
+                <div class="clearfix"></div>
+            </form>
+        </div>
+    </div>
+</div>

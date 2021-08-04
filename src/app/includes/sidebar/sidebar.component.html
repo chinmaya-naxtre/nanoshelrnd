@@ -1,0 +1,55 @@
+<div class="sidebar" data-color="purple" data-background-color="white" data-image="../assets/img/sidebar-1.jpg">
+    <!--
+        Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
+
+        Tip 2: you can also add an image using data-image tag
+    -->
+     <div class="logo" style="text-align: center;">
+            <b>{{userName}}</b></div>
+    <div class="sidebar-wrapper">
+        <ul class="nav">
+             <li class="nav-item active  ">
+                <!-- <a class="nav-link" href="javascript:void(0)">
+                    <i class="material-icons">dashboard</i>
+                    <p>Dashboard</p>
+                </a> -->
+            </li>
+            <li class="nav-item ">
+                <!-- <a class="nav-link" href="javascript:void(0)">
+                    <i class="material-icons">person</i>
+                    <p>User Profile</p>
+                </a> -->
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="javascript:void(0)" routerLink="/home">
+                    <i class="material-icons">home</i>
+                    <p>HOME</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="javascript:void(0)" routerLink="/procedure-list/{{userId}}">
+                    <i class="material-icons">content_paste</i>
+                    <p>Procedures List</p>
+                </a>
+            </li>
+             <li class="nav-item ">
+                <!-- <a class="nav-link" href="javascript:void(0)">
+                    <i class="material-icons">notifications</i>
+                    <p>Notifications</p>
+                </a> -->
+            </li>
+            <li class="nav-item "  id = "adminPanelLink" style="display: none;" (click)="openAdminPanel()">
+                <a class="nav-link" href="javascript:void(0)">
+                    <i class="material-icons">admin_panel_settings</i>
+                    <p>Admin Panel</p>
+                </a>
+            </li>
+            <li class="nav-item ">
+                <a class="nav-link" href="javascript:void(0)" (click)="logout()">
+                    <i class="material-icons">logout</i>
+                    <p>LogOut</p>
+                </a>
+            </li>
+        </ul>
+    </div>
+</div>

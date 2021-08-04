@@ -1,0 +1,31 @@
+tr {
+  cursor: pointer;
+}
+.table.table-hover tbody tr:hover td {
+  background-color: #e1f5f4;
+}
+
+.card {
+  min-height: 525px;
+}
+
+.product-card {
+  min-height: fit-content !important;
+}
+.selected-product-table tbody tr td {
+  padding: 0px !important;
+}
+.product-card
+  [class*="card-header-"]:not(.card-header-icon):not(.card-header-text):not(.card-header-image) {
+  border-radius: 3px;
+  margin-top: -20px;
+  padding: 0px 15px;
+}
+.card .card-header-info .card-icon,
+.card .card-header-info .card-text,
+.card .card-header-info:not(.card-header-icon):not(.card-header-text),
+.card.bg-info,
+.card.card-rotate.bg-info .front,
+.card.card-rotate.bg-info .back {
+  background: #43a047 !important;
+}

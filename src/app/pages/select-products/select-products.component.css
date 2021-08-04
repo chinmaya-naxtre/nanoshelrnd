@@ -1,0 +1,86 @@
+@media screen and (max-width: 360px) {
+  body {
+    background-color: #eee !important;
+  }
+}
+tr {
+  cursor: pointer;
+}
+.table.table-hover tbody tr:hover td {
+  background-color: #e1f5f4;
+}
+.card {
+  min-height: 230px;
+}
+.product-card {
+  min-height: fit-content !important;
+}
+.selected-product-table tbody tr td {
+  padding: 0px !important;
+}
+.product-card
+  [class*="card-header-"]:not(.card-header-icon):not(.card-header-text):not(.card-header-image) {
+  border-radius: 3px;
+  margin-top: -20px;
+  padding: 0px 15px;
+}
+.card {
+  width: 1000px !important;
+}
+.btn btn-success btn-block {
+  max-width: fit-content !important;
+  background: #101010 !important;
+  margin-left: 30px !important;
+}
+/* div.card {
+  height: 110px;
+  overflow-x: hidden;
+  overflow-y: auto;
+  text-align: justify !important;
+} */
+
+div#profile .table tr:nth-child(1) {
+  position: sticky;
+  top: 0;
+  background: #ffffff;
+  z-index: 9;
+}
+div#profile {
+  max-height: 230px;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+div#profile .table > thead > tr > th,
+div#profile .table > tbody > tr > th,
+div#profile .table > tfoot > tr > th,
+div#profile .table > thead > tr > td,
+div#profile .table > tbody > tr > td,
+div#profile .table > tfoot > tr > td {
+  padding: 5px;
+}
+
+.selected-product {
+  float: left;
+  background: #e8edef;
+  border-radius: 8px;
+  margin-right: 10px;
+  margin-bottom: 10px !important;
+  padding: 5px;
+}
+
+.selected-product p {
+  margin-bottom: 0px;
+  max-width: 400% !important;
+}
+
+.selected-product a i {
+  font-size: 16px;
+  background: brown;
+  color: aliceblue;
+  border-radius: 10px;
+  padding: 2px;
+}
+.product-card {
+  height: fit-content;
+  width: fit-content !important;
+}

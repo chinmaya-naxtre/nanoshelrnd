@@ -1,0 +1,28 @@
+
+
+<div class="col-lg-12 col-md-12" id="selected-products">
+    <div class="card product-card">
+        <div class="card-header card-header-tabs card-header-success">
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <span class="nav-tabs-title">Selected Products:</span>
+                </div>
+            </div>
+        </div>
+        <div class="card-body">
+            <div class="tab-content">
+                <div class="tab-pane active" id="profile">
+                    <span class="selected-product" *ngFor="let product of products">
+                        <p id="s-prods" data-toggle="tooltip" title="{{product.title}} (Category Name: {{product.cat_name}})" data-placement="top" style="height: 20px; width: 250px; overflow: hidden;">
+                            {{product.title}}</p>
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<h3>Your Procedure</h3>
+<ckeditor [editor]="Editor" [config]='config' [(ngModel)]="htmlData">
+</ckeditor>
+<button style="margin-right: 10px;" type="button" class="btn btn-success" (click)="saveProcedure()">Save</button>

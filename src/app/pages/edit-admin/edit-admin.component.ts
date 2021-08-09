@@ -38,6 +38,12 @@ export class EditAdminComponent implements OnInit, AfterViewInit {
   confirm_password: string = '';
   user_type: string = '';
 
+  prodsNames: any = [];
+  subCatProds: any = [];
+  selectedSubCatPodsNames: any = [];
+  selectedSubCatProdsIds: any = [];
+  SubSelect: boolean = false;
+
   constructor(
     private http: HttpClient,
     private router: Router,
@@ -49,11 +55,9 @@ export class EditAdminComponent implements OnInit, AfterViewInit {
       this.router.navigate(['']);
     } else {
       $('input').parent().removeClass('is-active');
-      this.fetchSelectedItems();
-      this.fetchCheckedIDs();
-      console.log(this.checkedIDs);
+      // console.log(this.checkedIDs);
       this.http
-        .get(`${apiUrl}get_category.php`)
+        .get(`${apiUrl}getCategories.php`)
         .toPromise()
         .then((data) => {
           this.items = JSON.parse(JSON.stringify(data));
@@ -84,26 +88,111 @@ export class EditAdminComponent implements OnInit, AfterViewInit {
     }
   }
 
-  changeSelection() {
-    this.fetchSelectedItems();
+  checked(item: any) {
+    // if (this.selected.indexOf(item.id) != -1) {
+    //   return true;
+    // }
   }
 
-  fetchSelectedItems() {
-    this.selectedItemsList = this.checkboxesDataList.filter(
-      (value: any, index: any) => {
-        return value.isChecked;
-      }
-    );
-    //console.log(this.selectedItemsList);
+  async onChange(event: any, item: any, i: Number) {
+    if (event.target.checked) {
+      this.selected.push(item.id);
+      this.prodsNames.push(item.cat_name);
+    } else {
+      this.selected.splice(this.selected.indexOf(item.id), 1);
+      this.prodsNames.splice(this.prodsNames.indexOf(item.cat_name), 1);
+    }
+
+    console.log(this.selected);
+    console.log(this.prodsNames);
   }
 
-  fetchCheckedIDs() {
-    this.checkedIDs = [];
-    this.checkboxesDataList.forEach((value: any, index: any) => {
-      if (value.isChecked) {
-        this.checkedIDs.push(value.id);
-      }
-    });
+  checkedSub(item: any) {
+    if (this.selectedSubCatProdsIds.indexOf(item.id) != -1) {
+      return true;
+    }
+  }
+
+  async onChangeSub(event: any, item: any, i: Number) {
+    if (event.target.checked) {
+      this.selectedSubCatProdsIds.push(item.id);
+      this.selectedSubCatPodsNames.push(item.cat_name);
+    } else {
+      this.selectedSubCatProdsIds.splice(
+        this.selectedSubCatProdsIds.indexOf(item.id),
+        1
+      );
+      this.selectedSubCatPodsNames.splice(
+        this.selectedSubCatPodsNames.indexOf(item.cat_name),
+        1
+      );
+    }
+
+    //console.log(this.selectedSubCatProdsIds);
+    // console.log(this.selectedSubCatPodsNames);
+  }
+  checkAll(ev: any) {
+    // this.items.forEach((x) => (x.state = ev.target.checked));
+    if (ev.target.checked) {
+      this.items.forEach((item) => {
+        this.selected.push(item.id);
+        this.prodsNames.push(item.cat_name);
+        item.isChecked = true;
+      });
+    } else {
+      this.items.forEach((item) => {
+        item.isChecked = false;
+      });
+      this.selected = [];
+      this.prodsNames = [];
+    }
+  }
+
+  checkAllSubByCategory(isChecked: any, item: any) {
+    console.log(item);
+    this.SubSelect = true;
+    if (isChecked) {
+      item.sub_category.forEach((subItem: any) => {
+        this.selectedSubCatProdsIds.push(subItem.id);
+        this.selectedSubCatPodsNames.push(subItem.cat_name);
+
+        subItem.isChecked = true;
+      });
+    } else {
+      this.SubSelect = false;
+      item.sub_category.forEach((subItem: any) => {
+        subItem.isChecked = false;
+      });
+      this.selectedSubCatProdsIds = [];
+      this.selectedSubCatPodsNames = [];
+    }
+
+    console.log(this.selectedSubCatPodsNames);
+    console.log(this.selectedSubCatProdsIds);
+  }
+
+  checkAllSub(ev: any, item: any) {
+    console.log(item);
+    if (ev.target.checked) {
+      item.sub_category.forEach((subItem: any) => {
+        this.selectedSubCatProdsIds.push(subItem.id);
+        this.selectedSubCatPodsNames.push(subItem.cat_name);
+        subItem.isChecked = true;
+      });
+    } else {
+      item.sub_category.forEach((subItem: any) => {
+        subItem.isChecked = false;
+      });
+      this.selectedSubCatProdsIds = [];
+      this.selectedSubCatPodsNames = [];
+    }
+
+    console.log(this.selectedSubCatPodsNames);
+    console.log(this.selectedSubCatProdsIds);
+  }
+
+  isAllChecked() {
+    return this.items.every((_) => _.state);
   }
 
   update_profile() {
@@ -123,7 +212,10 @@ export class EditAdminComponent implements OnInit, AfterViewInit {
         last_name: this.last_name,
         password: this.password,
         user_type: this.user_type,
-        products_names: this.selectedProductsIds,
+        prodsIds: this.selected,
+        prodsNames: this.prodsNames,
+        subCatProdIds: this.selectedSubCatProdsIds,
+        subCatProdNames: this.selectedSubCatPodsNames,
         user_id: id.user_id,
       };
       this.http.post(apiUrl + 'update_user.php', input).subscribe((result) => {

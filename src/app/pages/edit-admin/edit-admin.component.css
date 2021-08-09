@@ -3,3 +3,69 @@ div#acc_products {
   overflow-y: auto;
   height: 200px;
 }
+
+div#acc_products {
+  overflow-x: hidden;
+  overflow-y: auto;
+  height: 200px;
+}
+.dropright {
+  margin: 5px 1px !important;
+}
+
+.dropdown-menu {
+  min-width: 400px;
+  max-width: 100%;
+}
+.c {
+  margin-left: 50px;
+}
+
+.c-lbl1 {
+  /* min-width: 300px !important;
+  padding-left: 0px !important; */
+}
+
+.btn btn-lbl1 c-lbl1 {
+  padding: 5px !important;
+}
+.form-check.selectall_block label.form-check-label {
+  color: #000 !important;
+}
+.acc_products label.btn.btn-lbl1.c-lbl1 {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+}
+.acc_products .form-check {
+  float: left;
+  width: 100%;
+}
+.acc_products .btn.btn-lbl2 {
+  background: none;
+  box-shadow: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  text-align: left;
+}
+.btn-group.dropright {
+  width: 100%;
+  float: left;
+  margin: 3px 0px !important;
+  padding: 0;
+}
+label.form-check-label {
+  color: #000000;
+}
+.acc_products button.btn.btn-lbl1.dropdown-toggle.dropdown-toggle-split {
+  background: #777;
+  box-shadow: none;
+  margin: -3px 0px 5px 14px;
+  padding: 4px;
+  font-size: 18px;
+  color: #fff;
+  border-radius: 5px;
+  transform: rotate(90deg);
+}

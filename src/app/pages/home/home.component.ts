@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
   accessable_products: any = [];
   all_items: any = [];
   all_items_cat_name: any = [];
+  userId: String = '';
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -36,22 +37,19 @@ export class HomeComponent implements OnInit {
       let udata = localStorage.getItem('userdata');
       if (udata) {
         this.userdata = JSON.parse(udata);
-        this.accessable_products = this.userdata.accessable_products;
+        this.userId = this.userdata.userId;
+        //this.accessable_products = this.userdata.accessable_products;
       }
-      console.log(this.accessable_products);
+      //console.log(this.accessable_products);
+      let input = {
+        userId: this.userId,
+      };
       this.http
-        .get(`${apiUrl}get_category.php`)
-        .toPromise()
-        .then((data) => {
-          this.all_items = JSON.parse(JSON.stringify(data));
-          for (let i = 0; i < this.all_items.length; i++) {
-            if (
-              this.accessable_products.indexOf(this.all_items[i].cat_name) != -1
-            ) {
-              this.items.push(this.all_items[i]);
-            }
-          }
-          console.log(this.items);
+        .post(apiUrl + 'get_category.php', input)
+        .subscribe((response) => {
+          this.all_items = JSON.parse(JSON.stringify(response));
+          console.log(this.all_items);
+          this.items = this.all_items;
         });
     }
   }

@@ -62,17 +62,72 @@
                         <label for="2">M.Tech</label>
                     </div>
                 </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label class="bmd-label-floating">Accessable Products: </label><br>
+                <div>
+                    Accessable Products:
+                
+                </div>
+                <!-- <input  class="form-check-input"  type="checkbox" name="all" [checked]="isAllChecked()" (change)="checkAll($event)">&nbsp; Select All  -->
+                <div class="form-check selectall_block">
+                    <label class="form-check-label">
+                        <input class="form-check-input" type="checkbox" (change)="checkAll($event)">
+                        <span class="form-check-sign">
+                            <span class="check"></span>
+                        </span>
+                        Select All
+                    </label>
+                </div>
+                
+                <div class="acc_products" *ngFor="let item of items; index as i">
+                    <div>
+                        <div class="btn-group dropright lbl1">
+                            <label class="btn btn-lbl1 c-lbl1">
+                                <div class="form-check">
+                
+                                    <label class="form-check-label">
+                
+                                        <input class="form-check-input" type="checkbox" name="products[]" value="{{ item.id }}"
+                                            id="item_{{ item.id }}" [(ngModel)]="item.isChecked" (change)="onChange($event, item, i)"
+                                            [checked]="checked(item)">
+                                        <span class="form-check-sign">
+                                            <span class="check"></span>
+                                        </span>
+                                        {{item.cat_name}}
+                                    </label>
+                                </div>
+                            </label>
+                            <button type="button" class="btn btn-lbl1 dropdown-toggle dropdown-toggle-split" data-toggle="collapse"
+                                [attr.data-target]="'#collapse_'+ item.id">
+                                <span class="sr-only">Toggle Dropright</span>
+                            </button>
+                        </div>
                     </div>
-                    <div id="acc_products" style="float:right !important;">
-                        <ul class="checkbox-items" *ngFor="let item of checkboxesDataList">
-                            <li>
-                                <input type="checkbox" name="{{item.cat_name}}" id="{{item.cat_name}}"
-                                    [(ngModel)]="item.isChecked" (change)="changeSelection()">&nbsp; {{item.cat_name}}
-                            </li>
-                        </ul>
+                    <div class="collapse" id="collapse_{{item.id}}">
+                        <div class="c">
+                            <div class="form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" type="checkbox" (change)="checkAllSub($event,item)">
+                                    <span class="form-check-sign">
+                                        <span class="check"></span>
+                                    </span>
+                                    Select All
+                                </label>
+                            </div>
+                            <div class="btn-group dropright" *ngFor="let subCat of item.sub_category">
+                                <label class="btn btn-lbl2">
+                                    <div class="form-check">
+                                        <label class="form-check-label">
+                                            <input class="form-check-input" type="checkbox" name="subCatProds[]" value="{{ subCat.id }}"
+                                                id="item_{{ subCat.id }}" [(ngModel)]="subCat.isChecked"
+                                                (change)="onChangeSub($event, subCat, i)" [checked]="checkedSub(subCat)">
+                                            <span class="form-check-sign">
+                                                <span class="check"></span>
+                                            </span>
+                                            {{subCat.cat_name}}
+                                        </label>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <button type="submit" class="btn btn-primary pull-right" (click)="update_profile()">Update Profile</button>

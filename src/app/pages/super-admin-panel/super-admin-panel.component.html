@@ -1,8 +1,8 @@
 
-<button type="submit" class="btn btn-success" id="add_admin_button" style="float: right;" (click)="addAdmin()">Add Admin</button>
+<button type="submit" class="btn btn-success" id="add_admin_button" style="float: right;" (click)="addAdmin()">Add User</button>
 <button type="submit" class="btn btn-success" id="back_button"  (click)="back()">Back</button>
 <div class="container">
-    <h1>All Admins</h1>
+    <h1>All Users</h1>
     <table class="rwd-table">
         <tbody>
             <tr>
@@ -27,7 +27,10 @@
                     <p><strong>username</strong> : {{admin.user_name}}</p>
                     <p><strong>password</strong> : {{admin.password}}</p>
                 </td>
-                <td>{{admin.accessable_products}}</td>
+                <td>Categories: ({{admin.accessable_products}})
+                    <br><br>
+                    Sub-Categories: ({{admin.acc_sub_prods}})
+                </td>
                 <td>
                     <button class="btn" id="e-btn" (click)="editAdmin(admin.user_id)">Edit</button> &nbsp;
                     <button class="btn" id="d-btn" (click)="deleteAdmin(admin.user_id)">Delete</button>

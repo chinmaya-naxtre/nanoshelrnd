@@ -14,22 +14,7 @@ declare var $: any;
   styleUrls: ['./add-admin.component.css'],
 })
 export class AddAdminComponent implements OnInit, AfterViewInit {
-  selectedItemsList: any = [];
-  checkedIDs: any = [];
-  selectedProductsIds: any = [];
-
   items: any[] = [];
-  products: any = [];
-  cat_id: any;
-  category: any;
-  selected: any = [];
-  selectedProducts: any = [];
-  checkedProducts: any = [];
-  checkedList: any = [];
-  searchText: String = '';
-  onSearchCatId: String = '';
-  closeResult: string = '';
-  checkboxesDataList: any = [];
   username: string = '';
   email: string = '';
   first_name: string = '';
@@ -37,6 +22,17 @@ export class AddAdminComponent implements OnInit, AfterViewInit {
   password: string = '';
   confirm_password: string = '';
   user_type: string = '';
+
+  products: any = [];
+  selected: any = [];
+  checkedProducts: any = [];
+  checkedList: any = [];
+  prodsNames: any = [];
+  subCatProds: any = [];
+  selectedSubCatPodsNames: any = [];
+  selectedSubCatProdsIds: any = [];
+
+  SubSelect: boolean = false;
 
   constructor(private http: HttpClient, private router: Router) {}
 
@@ -47,51 +43,138 @@ export class AddAdminComponent implements OnInit, AfterViewInit {
     if (localStorage.getItem('token') === null) {
       this.router.navigate(['']);
     } else {
-      this.fetchSelectedItems();
-      this.fetchCheckedIDs();
-      console.log(this.checkedIDs);
       this.http
-        .get(`${apiUrl}get_category.php`)
+        .get(`${apiUrl}getCategories.php`)
         .toPromise()
         .then((data) => {
           this.items = JSON.parse(JSON.stringify(data));
-          this.checkboxesDataList = this.items;
-          //console.log(this.checkboxesDataList);
+          console.log(this.items);
         });
+    }
+    this.loadScript();
+  }
+  loadScript() {
+    let script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = './assets/js/custom.extra.js';
+
+    document.getElementById('extra-script')?.append(script);
+  }
+
+  checked(item: any) {
+    // if (this.selected.indexOf(item.id) != -1) {
+    //   return true;
+    // }
+  }
+
+  async onChange(event: any, item: any, i: Number) {
+    if (event.target.checked) {
+      this.selected.push(item.id);
+      this.prodsNames.push(item.cat_name);
+    } else {
+      this.selected.splice(this.selected.indexOf(item.id), 1);
+      this.prodsNames.splice(this.prodsNames.indexOf(item.cat_name), 1);
+    }
+
+    console.log(this.selected);
+    console.log(this.prodsNames);
+  }
+
+  checkedSub(item: any) {
+    if (this.selectedSubCatProdsIds.indexOf(item.id) != -1) {
+      return true;
     }
   }
 
-  changeSelection() {
-    this.fetchSelectedItems();
+  async onChangeSub(event: any, item: any, i: Number) {
+    if (event.target.checked) {
+      this.selectedSubCatProdsIds.push(item.id);
+      this.selectedSubCatPodsNames.push(item.cat_name);
+    } else {
+      this.selectedSubCatProdsIds.splice(
+        this.selectedSubCatProdsIds.indexOf(item.id),
+        1
+      );
+      this.selectedSubCatPodsNames.splice(
+        this.selectedSubCatPodsNames.indexOf(item.cat_name),
+        1
+      );
+    }
+
+    //console.log(this.selectedSubCatProdsIds);
+    // console.log(this.selectedSubCatPodsNames);
+  }
+  checkAll(ev: any) {
+    // this.items.forEach((x) => (x.state = ev.target.checked));
+    if (ev.target.checked) {
+      this.items.forEach((item) => {
+        this.selected.push(item.id);
+        this.prodsNames.push(item.cat_name);
+        this.checkAllSubByCategory(true, item);
+        item.isChecked = true;
+      });
+    } else {
+      this.items.forEach((item) => {
+        this.checkAllSubByCategory(false, item);
+
+        item.isChecked = false;
+      });
+      this.selected = [];
+      this.prodsNames = [];
+    }
   }
 
-  fetchSelectedItems() {
-    this.selectedItemsList = this.checkboxesDataList.filter(
-      (value: any, index: any) => {
-        return value.isChecked;
-      }
-    );
-    //console.log(this.selectedItemsList);
+  checkAllSubByCategory(isChecked: any, item: any) {
+    console.log(item);
+    this.SubSelect = true;
+    if (isChecked) {
+      item.sub_category.forEach((subItem: any) => {
+        this.selectedSubCatProdsIds.push(subItem.id);
+        this.selectedSubCatPodsNames.push(subItem.cat_name);
+
+        subItem.isChecked = true;
+      });
+    } else {
+      this.SubSelect = false;
+      item.sub_category.forEach((subItem: any) => {
+        subItem.isChecked = false;
+      });
+      this.selectedSubCatProdsIds = [];
+      this.selectedSubCatPodsNames = [];
+    }
+
+    // console.log(this.selectedSubCatPodsNames);
+    //console.log(this.selectedSubCatProdsIds);
+  }
+  checkAllSub(ev: any, item: any) {
+    console.log(item);
+    if (ev.target.checked) {
+      item.sub_category.forEach((subItem: any) => {
+        this.selectedSubCatProdsIds.push(subItem.id);
+        this.selectedSubCatPodsNames.push(subItem.cat_name);
+        subItem.isChecked = true;
+      });
+    } else {
+      item.sub_category.forEach((subItem: any) => {
+        subItem.isChecked = false;
+      });
+      this.selectedSubCatProdsIds = [];
+      this.selectedSubCatPodsNames = [];
+    }
+
+    console.log(this.selectedSubCatPodsNames);
+    console.log(this.selectedSubCatProdsIds);
   }
 
-  fetchCheckedIDs() {
-    this.checkedIDs = [];
-    this.checkboxesDataList.forEach((value: any, index: any) => {
-      if (value.isChecked) {
-        this.checkedIDs.push(value.id);
-      }
-    });
+  isAllChecked() {
+    return this.items.every((_) => _.state);
   }
 
   add_admin() {
     if (this.password !== this.confirm_password) {
       alert('Enter same password. Try Again');
     }
-    //console.log(this.selectedItemsList);
-    for (let i = 0; i < this.selectedItemsList.length; i++) {
-      this.selectedProductsIds.push(this.selectedItemsList[i].cat_name);
-    }
-    console.log(this.selectedProductsIds);
+
     let input = {
       username: this.username,
       email: this.email,
@@ -99,7 +182,10 @@ export class AddAdminComponent implements OnInit, AfterViewInit {
       last_name: this.last_name,
       password: this.password,
       user_type: this.user_type,
-      products_names: this.selectedProductsIds,
+      products_names: this.prodsNames,
+      prodsIds: this.selected,
+      subProds: this.selectedSubCatPodsNames,
+      subProdsIds: this.selectedSubCatProdsIds,
     };
 
     this.http.post(apiUrl + 'save_user.php', input).subscribe((result) => {
